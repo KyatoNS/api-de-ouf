@@ -4,29 +4,30 @@ require_once __DIR__ . "/../db.php";
 require_once __DIR__ . "/../Utils.php";
 
 try {
-    $body = getBody();
+    $path = $_SERVER["REQUEST_URI"];
+    $pathslited = explode("/", $path);
+    $parameter = end($pathslited);
 
-    // Si il manque des champs
-    if(empty($body["id"])) {
-        echo jsonResponse(400, [
+    $databaseConnection = getDatabaseConnection();
+    $getUserQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id;");
+
+    $getUserQuery->execute([
+        "id" => htmlspecialchars($parameter),
+    ]);
+
+    $user = $getUserQuery->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($user)) {
+        echo jsonResponse(404, [
             "success" => false,
-            "message" => "Missing parameters"
+            "error" => "User not found!"
         ]);
         die();
     }
 
-    $databaseConnection = getDatabaseConnection();
-    $getUsersQuery = $databaseConnection->prepare("SELECT * FROM users WHERE :id;");
-
-    $getUsersQuery->execute([
-        "id" => htmlspecialchars($body["id"]),
-    ]);
-
-    $users = $getUsersQuery->fetchAll(PDO::FETCH_ASSOC);
-
     echo jsonResponse(200, [
         "success" => true,
-        "users" => $users
+        "user" => $user
     ]);
 } catch (Exception $exception) {
     echo jsonResponse(500, [
