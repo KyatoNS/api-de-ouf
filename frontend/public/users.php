@@ -19,34 +19,56 @@
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
       </div>
     </form>
+    <ul role="list" class="divide-y divide-gray-100 flex">
 
 <?php
 
+	$curl = curl_init();
 
-	if (isset($_GET["order"]) {
-		$request="https://scalti.fr/users/$_GET['user']"
-	}else{
-		$request="https://salti.fr/users"
+	if (isset($_GET["userid"])) {
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => 'http://webserver/users/'.$_GET['userid'],
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'GET',
+		));
+
 	}
-	foreach ($users as $user) { ?>
-		<ul role="list" class="divide-y divide-gray-100">
-		  <li class="flex justify-between gap-x-6 py-5">
+	 else {
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => 'http://webserver/users',
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'GET',
+		));
+	}
+
+	$response = curl_exec($curl);
+	curl_close($curl);
+	$responseArray = get_object_vars(json_decode($response))['users'];
+	foreach ($responseArray as $userObject) :
+	$user = get_object_vars($userObject);
+?>
+		  <li class="flex justify-between gap-x-6 py-5 m-2">
 		    <div class="flex min-w-0 gap-x-4">
-		      <div class="min-w-0 flex-auto">
-		        <p class="text-sm/6 font-semibold text-gray-900">$user["name"]</p>
-		       	<p class="mt-1 truncate text-xs/5 text-gray-500"$user["id"]</p>
+		      <div class="min-w-0 flex-auto border-2 border-solid p-4">
+		       	<p class="text-sm/6 font-semibold text-gray-900"><?php echo $user['id_user']; ?></p>
+		        <p class="text-sm/6 font-semibold text-gray-900"><?php echo $user['username']; ?></p>
 		      </div>
 		    </div>
-		    <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-		      <p class="text-sm/6 text-gray-900">$user["mail"]</p>
-		    </div>
 		  </li>
-		</ul>
-
 <?php
-	}
+	endforeach;
 ?>
-
+     </ul>
   </div>
 </div>
 
