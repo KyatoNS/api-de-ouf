@@ -43,7 +43,7 @@ if (isPath(route: "orders")) {
 
 if (isPath("orders/:id")) {
 	if (isGetMethod()) {
-	    require_once __DIR__ . "/routes/orders.php";
+	    require_once __DIR__ . "/routes/getOrder.php";
 	    die();
 	}
 }
