@@ -25,7 +25,7 @@ if (isPath(route: "users")) {
 
 if (isPath("users/:id")) {
     if (isGetMethod()) {
-        require_once __DIR__ . "/routes/users.php";
+        require_once __DIR__ . "/routes/getUser.php";
         die();
     }
 }
