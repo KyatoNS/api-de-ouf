@@ -34,8 +34,12 @@ if (isPath(route: "orders")) {
     if (isGetMethod()) {
          require_once __DIR__ . "/routes/allOrders.php";
          die();
-     }
- }
+    }
+    if (isPostMethod()) {
+        require_once __DIR__ . "/routes/createOrder.php";
+        die();
+    }
+}
 
 if (isPath("orders/:id")) {
 	if (isGetMethod()) {
@@ -44,7 +48,7 @@ if (isPath("orders/:id")) {
 	}
 }
 
-if (isPath("migration")) {
+if (isPath("migrate")) {
 	if (isGetMethod()) {
         migrationDatabase();
 	    die();
