@@ -3,11 +3,11 @@ require_once __DIR__ . "/Utils.php";
 
 function getDatabaseConnection(): PDO{
 	$databaseType = "mysql";
-	$databasehost = "localhost";
+	$databasehost = "mariadb";
 	$username = "admin";
 	$password = "admin";
 	$dbname= "apideouf";
-	
+
 	return new PDO(
 		"$databaseType:host=$databasehost;dbname=$dbname",
 		$username,
