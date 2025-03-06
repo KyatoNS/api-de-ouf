@@ -1,23 +1,18 @@
  <?php
 require_once __DIR__ . "/Utils.php";
 
-$databaseType = "mysql"
-
-$servername = "localhost";
-
-$username = "admin";
-
-$password = "admin";
-
-$dbname= "apideouf";
-
-
-function getDatabaseConnection(): PDO
-
+function getDatabaseConnection(): PDO{
+	$databaseType = "mysql";
+	$databasehost = "localhost";
+	$username = "admin";
+	$password = "admin";
+	$dbname= "apideouf";
+	
 	return new PDO(
-		"$databaseType:host=$servername;dbname=$dbname",
+		"$databaseType:host=$databasehost;dbname=$dbname",
 		$username,
 		$password);
+}
 
 
 function migrationDatabase(){
