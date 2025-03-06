@@ -28,6 +28,10 @@ if (isPath("users/:id")) {
         require_once __DIR__ . "/routes/getUser.php";
         die();
     }
+    if (isDeleteMethod()) {
+        require_once __DIR__ . "/routes/deleteUser.php";
+        die();
+    }
 }
 
 if (isPath(route: "orders")) {
@@ -46,6 +50,10 @@ if (isPath("orders/:id")) {
 	    require_once __DIR__ . "/routes/getOrder.php";
 	    die();
 	}
+    if (isDeleteMethod()) {
+        require_once __DIR__ . "/routes/deleteOrder.php";
+        die();
+    }
 }
 
 if (isPath("migrate")) {

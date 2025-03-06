@@ -37,6 +37,16 @@ function isPostMethod(): bool
     return $_SERVER["REQUEST_METHOD"] === "POST";
 }
 
+function isPatchMethod(): bool
+{
+    return $_SERVER["REQUEST_METHOD"] === "PATCH";
+}
+
+function isDeleteMethod(): bool
+{
+    return $_SERVER["REQUEST_METHOD"] === "DELETE";
+}
+
 function getBody()
 {
     return json_decode(file_get_contents("php://input"), true);
