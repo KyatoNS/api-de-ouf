@@ -25,15 +25,15 @@ function migrationDatabase(){
 			`password` varchar(255) NOT NULL,
 			`token` varchar(50),
 			PRIMARY KEY (`id_user`)
-			);
-			CREATE TABLE `orders`(
+			);");
+		$databaseConnection->query("CREATE TABLE `orders`(
 			`id_order` INT NOT NULL AUTO_INCREMENT,
 			`prix` INT NOT NULL,
 			`date` DATE NOT NULL,
+			`id_user` INT NOT NULL,
 			PRIMARY KEY (`id_order`),
 			FOREIGN KEY (`id_user`) REFERENCES users(`id_user`)
 			);");
-
 		echo jsonResponse(201, [
 			"success" => true,
 			"message" => "Database created"
