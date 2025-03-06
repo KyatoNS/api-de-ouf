@@ -24,7 +24,7 @@ try {
     $createOrderQuery = $databaseConnection->prepare("
         INSERT INTO orders(
             prix,
-            date
+            date,
             id_user
         ) VALUES (
             :prix,
