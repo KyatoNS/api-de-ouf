@@ -6,8 +6,8 @@
   <title>Scalti API Client</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-center">
-<header class="bg-white">
+<body class="bg-gray-800 text-center text-white">
+<header class="bg-gray-900 text-white">
   <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
     <div class="flex lg:flex-1">
       <a href="#" class="-m-1.5 p-1.5">
@@ -16,7 +16,7 @@
       </a>
     </div>
     <div class="flex lg:hidden">
-      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+      <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-200">
         <span class="sr-only">Open main menu</span>
         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -25,13 +25,13 @@
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
       <div class="relative mx-8">
-      <a href="index.php" class="text-sm/6 font-semibold text-gray-900">Authenticate</a>
-      <a href="users.php" class="text-sm/6 font-semibold text-gray-900">Users</a>
-      <a href="orders.php" class="text-sm/6 font-semibold text-gray-900">Orders</a>
+      <a href="index.php" class="text-sm/6 font-semibold text-gray-200">Authenticate</a>
+      <a href="users.php" class="text-sm/6 font-semibold text-gray-200">Users</a>
+      <a href="orders.php" class="text-sm/6 font-semibold text-gray-200">Orders</a>
       </div>
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      <p href="" class="text-sm/6 font-semibold text-gray-900"> Scalti API Client </p>
+      <p href="" class="text-sm/6 font-semibold text-gray-200"> Scalti API Client </p>
     </div>
   </nav>
   <!-- Mobile menu, show/hide based on menu open state. -->
