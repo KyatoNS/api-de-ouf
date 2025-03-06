@@ -31,3 +31,14 @@ function isGetMethod(): bool
 {
     return $_SERVER["REQUEST_METHOD"] === "GET";
 }
+
+function jsonResponse($statusCode, $body)
+{
+    // Modifie le code de statut
+    http_response_code($statusCode);
+
+    header("Content-Type: application/json");
+    
+    // On renvoie une réponse (contenu)
+    return json_encode($body);
+}
