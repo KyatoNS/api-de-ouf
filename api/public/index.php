@@ -16,8 +16,12 @@ if (isPath(route: "users")) {
     if (isGetMethod()) {
          require_once __DIR__ . "/routes/allUsers.php";
          die();
-     }
- }
+    }
+    if (isPostMethod()) {
+        require_once __DIR__ . "/routes/createUser.php";
+        die();
+    }
+}
 
 if (isPath("users/:id")) {
     if (isGetMethod()) {

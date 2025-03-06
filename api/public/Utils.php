@@ -32,6 +32,17 @@ function isGetMethod(): bool
     return $_SERVER["REQUEST_METHOD"] === "GET";
 }
 
+function isPostMethod(): bool
+{
+    return $_SERVER["REQUEST_METHOD"] === "POST";
+}
+
+function getBody()
+{
+    return json_decode(file_get_contents("php://input"), true);
+}
+
+
 function jsonResponse($statusCode, $body)
 {
     // Modifie le code de statut
