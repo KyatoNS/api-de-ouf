@@ -1,39 +1,57 @@
 <?php
 
 header("Content-Type: application/json");
-include 'db.php';
-include 'PathTools.php'
-$method = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
 
-//echo($uri)
-
-if (isPath("users/:id")) {
-    // Route pour récupérer tous les utilisateurs
-    if (isGetMethod()) {
-        require_once __DIR__ . "/routes/users.php";
-        die(;
-    }
-}
-
-if (isPath(("users")) {
-   if (isGetMethod() {
-	require_once __DIRE__ . "/routes/allUsers.php";
-	die()
-    }
-}
+require_once __DIR__ . "/db.php";
+require_once __DIR__ . "/Utils.php";
 
 if (isPath("authenticate")) {
-   // permet de s'authentifier
-   if (isPostMethod()) {
-	require_once __DIR__ . "routes/authenticate.php";
-	die()
+    if (isGetMethod()) {
+         require_once __DIR__ . "/routes/authenticate.php";
+         die();
+    }
+ }
+
+if (isPath(route: "users")) {
+    if (isGetMethod()) {
+         require_once __DIR__ . "/routes/allUsers.php";
+         die();
+    }
+    if (isPostMethod()) {
+        require_once __DIR__ . "/routes/createUser.php";
+        die();
+    }
 }
 
-if {isPath("orders/:id")) {
+if (isPath("users/:id")) {
+    if (isGetMethod()) {
+        require_once __DIR__ . "/routes/users.php";
+        die();
+    }
+}
+
+if (isPath(route: "orders")) {
+    if (isGetMethod()) {
+         require_once __DIR__ . "/routes/allOrders.php";
+         die();
+    }
+    if (isPostMethod()) {
+        require_once __DIR__ . "/routes/createOrder.php";
+        die();
+    }
+}
+
+if (isPath("orders/:id")) {
 	if (isGetMethod()) {
-	require_once __DIR__ . "/routes/orders.php";
-	die()
+	    require_once __DIR__ . "/routes/orders.php";
+	    die();
+	}
+}
+
+if (isPath("migrate")) {
+	if (isGetMethod()) {
+        migrationDatabase();
+	    die();
 	}
 }
 ?>

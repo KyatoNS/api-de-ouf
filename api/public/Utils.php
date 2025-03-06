@@ -31,3 +31,25 @@ function isGetMethod(): bool
 {
     return $_SERVER["REQUEST_METHOD"] === "GET";
 }
+
+function isPostMethod(): bool
+{
+    return $_SERVER["REQUEST_METHOD"] === "POST";
+}
+
+function getBody()
+{
+    return json_decode(file_get_contents("php://input"), true);
+}
+
+
+function jsonResponse($statusCode, $body)
+{
+    // Modifie le code de statut
+    http_response_code($statusCode);
+
+    header("Content-Type: application/json");
+    
+    // On renvoie une réponse (contenu)
+    return json_encode($body);
+}
