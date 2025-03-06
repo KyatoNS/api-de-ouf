@@ -30,6 +30,13 @@ if (isPath("users/:id")) {
     }
 }
 
+if (isPath(route: "orders")) {
+    if (isGetMethod()) {
+         require_once __DIR__ . "/routes/allOrders.php";
+         die();
+     }
+ }
+
 if (isPath("orders/:id")) {
 	if (isGetMethod()) {
 	    require_once __DIR__ . "/routes/orders.php";
