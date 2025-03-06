@@ -7,7 +7,7 @@ try {
     $body = getBody();
 
     // Si il manque des champs
-    if(empty($body["username"] || empty($body["password"]))) {
+    if(empty($body["username"]) || empty($body["password"])) {
         echo jsonResponse(400, [
             "success" => false,
             "message" => "Missing parameters"
