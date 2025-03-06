@@ -27,7 +27,7 @@ try {
 
     echo jsonResponse(200, [
         "success" => true,
-        "user" => $user
+        "users" => $user
     ]);
 } catch (Exception $exception) {
     echo jsonResponse(500, [

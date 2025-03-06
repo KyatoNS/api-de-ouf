@@ -225,7 +225,7 @@
 
 	if (isset($_GET["userid"])) {
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'http://webserver/users/'.$_GET['userid'],
+		  CURLOPT_URL => 'http://webserver/users/'.$_GET["userid"],
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => '',
 		  CURLOPT_MAXREDIRS => 10,
