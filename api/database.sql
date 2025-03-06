@@ -1,4 +1,4 @@
-CREATE TABLE `user`(
+CREATE TABLE `users`(
     `id_user` INT NOT NULL AUTO_INCREMENT,
     `username` varchar(50) NOT NULL,
     `password` varchar(50) NOT NULL,
@@ -6,10 +6,10 @@ CREATE TABLE `user`(
     PRIMARY KEY (`id_user`)
 )
 
-CREATE TABLE `order`(
+CREATE TABLE `orders`(
     `id_order` INT NOT NULL AUTO_INCREMENT,
     `prix` INT NOT NULL,
     `date` DATE NOT NULL,
     PRIMARY KEY (`id_order`),
-    FOREIGN KEY (`id_user`) REFERENCES user(`id_user`)
+    FOREIGN KEY (`id_user`) REFERENCES users(`id_user`)
 )

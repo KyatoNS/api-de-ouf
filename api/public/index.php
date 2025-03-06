@@ -36,4 +36,11 @@ if (isPath("orders/:id")) {
 	die();
 	}
 }
+
+if (isPath("migration")) {
+	if (isGetMethod()) {
+        migrationDatabase()
+	die();
+	}
+}
 ?>
