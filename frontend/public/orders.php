@@ -12,7 +12,7 @@
           <label class="block text-sm/6 font-medium text-gray-200">Order# to modify</label>
         </div>
         <div class="mt-2">
-          <input type="text" name="useridmodify" id="useridmodify"  required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+          <input type="text" name="ordersidmodify" id="ordersidmodify"  required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
         </div>
       </div>
 
@@ -51,21 +51,18 @@
 <?php
 
 
-
-	if (isset($_POST["ordersidmodify"]) && isset($_POST["newprice"]) || isset($_POST["newdate"]) || isset($_POST["neworderiduser"])) {
-		if (isset($_POST["newprice"])){
-			$curl = curl_init();
-
-				curl_setopt_array($curl, array(
-				  CURLOPT_URL => 'http://webserver/orders',
+	$curl = curl_init();
+	if (isset($_POST["ordersidmodify"]) && isset($_POST["newprice"]) && isset($_POST["newdate"]) && isset($_POST["neworderiduser"])) {
+			curl_setopt_array($curl, array(
+				  CURLOPT_URL => 'http://webserver/orders/'.$_POST["ordersidmodify"],
 				  CURLOPT_RETURNTRANSFER => true,
 				  CURLOPT_ENCODING => '',
 				  CURLOPT_MAXREDIRS => 10,
 				  CURLOPT_TIMEOUT => 0,
 				  CURLOPT_FOLLOWLOCATION => true,
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				  CURLOPT_CUSTOMREQUEST => 'PATCH',
-				  CURLOPT_POSTFIELDS =>json_encode(array("id_user"=>$_POST["useridmodify"], "username"=>$_POST["newprice"])),
+				  CURLOPT_CUSTOMREQUEST => 'PUT',
+				  CURLOPT_POSTFIELDS =>json_encode(array("prix"=>$_POST["newprice"], "date"=>$_POST["newdate"], 'id_user'=>$_POST["neworderiduser"])),
 			          CURLOPT_HTTPHEADER => array(
 			          ': ',
 			          'Content-Type: application/json'
@@ -73,59 +70,12 @@
 		 		  ));
 
 
-			curl_exec($curl);
+
+			$response = curl_exec($curl);
 			curl_close($curl);
-
-		}
-
-	if (isset($_POST["newdate"])){
-		$curl = curl_init();
-			curl_setopt_array($curl, array(
-			  CURLOPT_URL => 'http://webserver/orders',
-			  CURLOPT_RETURNTRANSFER => true,
-			  CURLOPT_ENCODING => '',
-			  CURLOPT_MAXREDIRS => 10,
-			  CURLOPT_TIMEOUT => 0,
-			  CURLOPT_FOLLOWLOCATION => true,
-			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			  CURLOPT_CUSTOMREQUEST => 'PATCH',
-			  CURLOPT_POSTFIELDS =>json_encode(array("is_user"=>$_POST["useridmodify"], "password"=>$_POST["newdate"])),
-		          CURLOPT_HTTPHEADER => array(
-		          ': ',
-		          'Content-Type: application/json'
-		           ),
-	 		  ));
-
-		curl_exec($curl);
-		curl_close($curl);
-
-	}
-
+			print_r($response);
 }
 
-
-	if (isset($_POST["neworderiduser"])){
-		$curl = curl_init();
-			curl_setopt_array($curl, array(
-			  CURLOPT_URL => 'http://webserver/orders',
-			  CURLOPT_RETURNTRANSFER => true,
-			  CURLOPT_ENCODING => '',
-			  CURLOPT_MAXREDIRS => 10,
-			  CURLOPT_TIMEOUT => 0,
-			  CURLOPT_FOLLOWLOCATION => true,
-			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			  CURLOPT_CUSTOMREQUEST => 'PATCH',
-			  CURLOPT_POSTFIELDS =>json_encode(array("is_user"=>$_POST["useridmodify"], "password"=>$_POST["newdate"])),
-		          CURLOPT_HTTPHEADER => array(
-		          ': ',
-		          'Content-Type: application/json'
-		           ),
-	 		  ));
-
-		curl_exec($curl);
-		curl_close($curl);
-
-	}
 ?>
 
 <div class="border-2 border-solid m-2 rounded p-3 border-gray-600">

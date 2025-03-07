@@ -14,7 +14,7 @@
           <label class="block text-sm/6 font-medium text-gray-200">User id to modify</label>
         </div>
         <div class="mt-2">
-          <input type="text" name="useridmodify" id="useridmodify"  required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+          <input type="text" name="usermodify" id="usermodify"  required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
         </div>
       </div>
 
@@ -43,23 +43,22 @@
 
 $curl = curl_init();
 
-	if (isset($_POST["useridmodify"]) && isset($_POST["newusername"]) || isset($_POST["newpassword"])) {
-		if (isset($_POST["newusername"])){
-				curl_setopt_array($curl, array(
-				  CURLOPT_URL => 'http://webserver/users',
-				  CURLOPT_RETURNTRANSFER => true,
-				  CURLOPT_ENCODING => '',
-				  CURLOPT_MAXREDIRS => 10,
-				  CURLOPT_TIMEOUT => 0,
-				  CURLOPT_FOLLOWLOCATION => true,
-				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				  CURLOPT_CUSTOMREQUEST => 'PATCH',
-				  CURLOPT_POSTFIELDS =>json_encode(array("id_user"=>$_POST["useridmodify"], "username"=>$_POST["newusername"])),
-			          CURLOPT_HTTPHEADER => array(
-			          ': ',
-			          'Content-Type: application/json'
-			           ),
-		 		  ));
+	if (isset($_POST["usermodify"]) && isset($_POST["newusername"]) && isset($_POST["newpassword"])) {
+		curl_setopt_array($curl, array(
+			  CURLOPT_URL => 'http://webserver/users/'.$_POST["usermodify"],
+			  CURLOPT_RETURNTRANSFER => true,
+			  CURLOPT_ENCODING => '',
+			  CURLOPT_MAXREDIRS => 10,
+			  CURLOPT_TIMEOUT => 0,
+			  CURLOPT_FOLLOWLOCATION => true,
+			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			  CURLOPT_CUSTOMREQUEST => 'PUT',
+			  CURLOPT_POSTFIELDS =>json_encode(array("username"=>$_POST["newusername"], "password"=>$_POST["newpassword"])),
+		          CURLOPT_HTTPHEADER => array(
+		         ': ',
+		          'Content-Type: application/json'
+		           ),
+	 		  ));
 
 
 			$response = curl_exec($curl);
@@ -67,30 +66,6 @@ $curl = curl_init();
 
 		}
 
-	if (isset($_POST["newpassword"])){
-		$curl = curl_init();
-			curl_setopt_array($curl, array(
-			  CURLOPT_URL => 'http://webserver/users',
-			  CURLOPT_RETURNTRANSFER => true,
-			  CURLOPT_ENCODING => '',
-			  CURLOPT_MAXREDIRS => 10,
-			  CURLOPT_TIMEOUT => 0,
-			  CURLOPT_FOLLOWLOCATION => true,
-			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			  CURLOPT_CUSTOMREQUEST => 'PATCH',
-			  CURLOPT_POSTFIELDS =>json_encode(array("id_user"=>$_POST["useridmodify"], "password"=>$_POST["newpassword"])),
-		          CURLOPT_HTTPHEADER => array(
-		          ': ',
-		          'Content-Type: application/json'
-		           ),
-	 		  ));
-
-		$reponse = curl_exec($curl);
-		curl_close($curl);
-
-	}
-
-}
 ?>
 
 <div class="border-2 border-solid m-2 rounded p-3 border-gray-600">
