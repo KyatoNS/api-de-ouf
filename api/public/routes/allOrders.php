@@ -6,7 +6,7 @@ require_once __DIR__ . "/../Utils.php";
 try {
 
     $databaseConnection = getDatabaseConnection();
-    $getOrdersQuery = $databaseConnection->query("SELECT * FROM orders;");
+    $getOrdersQuery = $databaseConnection->query("SELECT * FROM orders WHERE is_archived = FALSE;");
 
     $orders = $getOrdersQuery->fetchAll(PDO::FETCH_ASSOC);
 

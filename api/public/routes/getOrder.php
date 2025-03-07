@@ -9,7 +9,7 @@ try {
     $parameter = end($pathslited);
 
     $databaseConnection = getDatabaseConnection();
-    $getOrderQuery = $databaseConnection->prepare("SELECT * FROM orders WHERE id_order=:id;");
+    $getOrderQuery = $databaseConnection->prepare("SELECT * FROM orders WHERE id_order=:id AND is_archived = FALSE;");
 
     $getOrderQuery->execute([
         "id" => htmlspecialchars($parameter),

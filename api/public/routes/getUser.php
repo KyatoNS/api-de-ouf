@@ -9,7 +9,7 @@ try {
     $parameter = end($pathslited);
 
     $databaseConnection = getDatabaseConnection();
-    $getUserQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id;");
+    $getUserQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id AND is_archived = FALSE;");
 
     $getUserQuery->execute([
         "id" => htmlspecialchars($parameter),
