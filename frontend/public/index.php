@@ -56,6 +56,10 @@ if (isset($_POST["username"]) && isset($_POST["password"])){
 
 	echo $_SESSION["token"];
 	
-	echo $reponse;
 }
+
+	echo $reponse;
+	if(isset($_SESSION["token"])){
+		echo "Token : ".$_SESSION["token"];
+	}
 ?>

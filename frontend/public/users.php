@@ -151,11 +151,6 @@ $curl = curl_init();
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'POST',
 		  CURLOPT_POSTFIELDS => json_encode(array('username'=>$_POST["usernamecreate"], 'password'=>$_POST["passwordcreate"])),
-		  CURLOPT_HTTPHEADER => array(
-		         ': ',
-		          'Content-Type: application/json',
-			  "Authorization: Bearer $token"
-		           ),
 		));
 	}
 
@@ -209,8 +204,6 @@ $curl = curl_init();
 	}
 	 else {
 		
-		$token=$_SESSION['token'];
-		echo $_SESSION['token'];
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => 'http://webserver/users',
 		  CURLOPT_RETURNTRANSFER => true,
@@ -249,7 +242,6 @@ $curl = curl_init();
   </div>
 <?php 
 print_r($response);
-echo $_SESSION["token"];
 ?>
 </div>
 
