@@ -1,0 +1,797 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SCALTI API Client",
+    "description": "API pour gérer les utilisateurs de SCALTI, permettant de créer, mettre à jour, supprimer et récupérer des utilisateurs.",
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "http://scalti.fr:7000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "authenticate",
+      "description": "Authentification des utilisateurs"
+    },
+    {
+      "name": "users",
+      "description": "Opérations liées à la gestion des utilisateurs (création, mise à jour, suppression, etc.)"
+    },
+    {
+      "name": "orders",
+      "description": "Opérations liées à la gestion des commandes (création, récupération, mise à jour, suppression, etc.)"
+    }
+  ],
+  "paths": {
+    "/authenticate": {
+      "post": {
+        "tags": [
+          "authenticate"
+        ],
+        "summary": "Authentifier un utilisateur et obtenir un token",
+        "description": "Cette opération permet d'authentifier un utilisateur en vérifiant ses informations d'identification et de générer un token d'accès pour les requêtes suivantes.",
+        "requestBody": {
+          "description": "Contient les informations pour authentifier un utilisateur.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Liste des utilisateurs récupérée avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requête incorrecte, paramètres manquants ou invalides.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MissingParam"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Utilisateur ou mot de passe incorrects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthKO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Créer un utilisateur",
+        "description": "Cette opération permet à un utilisateur connecté de créer un nouvel utilisateur.",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "Contient les informations pour créer un utilisateur.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur créé avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Created"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requête incorrecte, paramètres manquants ou invalides.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MissingParam"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Lister tous les utilisateurs",
+        "description": "Cette opération permet de récupérer la liste de tous les utilisateurs enregistrés.",
+        "operationId": "listUsers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Liste des utilisateurs récupérée avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListUsers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Récupérer un utilisateur par son ID",
+        "description": "Permet de récupérer les informations d'un utilisateur en utilisant son ID unique.",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID unique de l'utilisateur à récupérer.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur récupéré avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListUsers"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Utilisateur non trouvé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsernotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Mettre à jour un utilisateur",
+        "description": "Permet à un utilisateur connecté de mettre à jour ses informations.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'utilisateur à mettre à jour.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Contient les informations mises à jour de l'utilisateur.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur mis à jour avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Updated"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Utilisateur non trouvé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsernotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Supprimer un utilisateur",
+        "description": "Permet à un utilisateur connecté de supprimer son compte.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID de l'utilisateur à supprimer.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur supprimé avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Utilisateur non trouvé.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsernotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Créer une commande",
+        "description": "Cette opération permet de créer une nouvelle commande.",
+        "operationId": "createOrder",
+        "requestBody": {
+          "description": "Objet représentant la commande à créer.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Commande créée avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Created"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requête invalide, paramètres manquants ou incorrects.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MissingParam"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Lister tous les commandes",
+        "description": "Cette opération permet de récupérer la liste de tous les commandes enregistrés.",
+        "responses": {
+          "200": {
+            "description": "Liste des utilisateurs récupérée avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOrders"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderid}": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Récupérer une commande par son ID",
+        "description": "Cette opération permet de récupérer les détails d'une commande en utilisant son identifiant unique.",
+        "operationId": "getOrdersByid",
+        "parameters": [
+          {
+            "name": "orderid",
+            "in": "path",
+            "description": "L'ID de la commande à récupérer.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Commande récupérée avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListOrders"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Commande non trouvée.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdernotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Mettre à jour une commande",
+        "description": "Cette opération permet de mettre à jour une commande existante.",
+        "operationId": "updateOrder",
+        "parameters": [
+          {
+            "name": "orderid",
+            "in": "path",
+            "description": "L'ID de la commande à mettre à jour.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Objet représentant la commande mise à jour.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Commande mise à jour avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Updated"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Commande non trouvée.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdernotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "orders"
+        ],
+        "summary": "Supprimer une commande",
+        "description": "Cette opération permet de supprimer une commande.",
+        "operationId": "deleteOrder",
+        "parameters": [
+          {
+            "name": "orderid",
+            "in": "path",
+            "description": "L'ID de la commande à supprimer.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Commande supprimée avec succès.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Non autorisé, token incorrect.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenKO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Commande non trouvée.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrdernotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthKO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "token": {
+            "type": "string",
+            "example": "Invalid username and password"
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "token": {
+            "type": "string",
+            "example": "MS4xNzQxNDM4Mjkw"
+          }
+        }
+      },
+      "TokenKO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "token": {
+            "type": "string",
+            "example": "Token not valid"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "toto"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345"
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "prix": {
+            "type": "string",
+            "example": "100"
+          },
+          "date": {
+            "type": "string",
+            "example": "2025-01-01"
+          },
+          "id_user": {
+            "type": "string",
+            "example": "1"
+          }
+        }
+      },
+      "Created": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "created"
+          }
+        }
+      },
+      "Updated": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "updated"
+          }
+        }
+      },
+      "Deleted": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "deleted"
+          }
+        }
+      },
+      "MissingParam": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "Missing parameters"
+          }
+        }
+      },
+      "UsernotFound": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "User not found!"
+          }
+        }
+      },
+      "OrdernotFound": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "Order not found!"
+          }
+        }
+      },
+      "ListUsers": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id_user": {
+                  "type": "integer",
+                  "example": 4
+                },
+                "username": {
+                  "type": "string",
+                  "example": "toto"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "$2y$12$oljz7QqCEhRDMoSjqIBIEejIHmFrBzWSs4rqppS40YwcgdkxipEAC"
+                },
+                "token": {
+                  "type": "string",
+                  "nullable": true,
+                  "example": null
+                },
+                "is_archived": {
+                  "type": "integer",
+                  "example": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "ListOrders": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id_order": {
+                  "type": "integer",
+                  "example": 4
+                },
+                "prix": {
+                  "type": "integer",
+                  "example": 100
+                },
+                "date": {
+                  "type": "string",
+                  "example": "2025-06-01"
+                },
+                "id_user": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "is_archived": {
+                  "type": "integer",
+                  "example": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}

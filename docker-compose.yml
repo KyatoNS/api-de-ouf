@@ -49,3 +49,12 @@ services:
             - './frontend:/application'
             - './phpdocker/php-fpm-frontend/php-ini-overrides.ini:/etc/php/8.4/fpm/conf.d/99-overrides.ini'
             - './phpdocker/php-fpm-frontend/php-ini-overrides.ini:/etc/php/8.4/cli/conf.d/99-overrides.ini'
+
+    swagger-ui:
+        image: swaggerapi/swagger-ui
+        ports:
+          - "8081:8080"
+        environment:
+          - SWAGGER_JSON=/mnt/openapi.json
+        volumes:
+          - ./swagger:/mnt
