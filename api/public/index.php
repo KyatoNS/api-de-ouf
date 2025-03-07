@@ -32,6 +32,10 @@ if (isPath("users/:id")) {
         require_once __DIR__ . "/routes/deleteUser.php";
         die();
     }
+    if (isPutMethod()) {
+        require_once __DIR__ . "/routes/updateUser.php";
+        die();
+    }
 }
 
 if (isPath(route: "orders")) {

@@ -37,9 +37,9 @@ function isPostMethod(): bool
     return $_SERVER["REQUEST_METHOD"] === "POST";
 }
 
-function isPatchMethod(): bool
+function isPutMethod(): bool
 {
-    return $_SERVER["REQUEST_METHOD"] === "PATCH";
+    return $_SERVER["REQUEST_METHOD"] === "PUT";
 }
 
 function isDeleteMethod(): bool

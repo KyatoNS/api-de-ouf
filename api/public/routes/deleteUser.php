@@ -11,16 +11,16 @@ try {
     $databaseConnection = getDatabaseConnection();
 
     try {
-        $getOrderQuery = $databaseConnection->prepare("SELECT * FROM orders WHERE id_order=:id;");
-        $getOrderQuery->execute([
+        $getUserQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id;");
+        $getUserQuery->execute([
             "id" => $parameter
         ]);
-        $order = $getOrderQuery->fetch(PDO::FETCH_ASSOC);
+        $user = $getUserQuery->fetch(PDO::FETCH_ASSOC);
 
-        if (empty($order)) {
+        if (empty($user)) {
             echo jsonResponse(404, [
                 "success" => false,
-                "message" => "Order not found"
+                "message" => "User not found"
             ]);
             die();
         }
@@ -33,9 +33,9 @@ try {
         die();
     }
 
-    $deleteOrderQuery = $databaseConnection->prepare("UPDATE orders SET is_archived = TRUE WHERE id_order=:id;");
+    $deleteUserQuery = $databaseConnection->prepare("UPDATE users SET is_archived = TRUE WHERE id_user = :id;");
 
-    $deleteOrderQuery->execute([
+    $deleteUserQuery->execute([
         "id" => $parameter
     ]);
 
