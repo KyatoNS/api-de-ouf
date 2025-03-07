@@ -40,10 +40,7 @@ if (isset($_POST["mail"]) && isset($_POST["password"])){
 	  CURLOPT_FOLLOWLOCATION => true,
 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 	  CURLOPT_CUSTOMREQUEST => 'POST',
-	  CURLOPT_POSTFIELDS =>'{
-	    "username": $_POST["mail"],
-	    "password": $_POST["password"]
-	}',
+	  CURLOPT_POSTFIELDS =>java_encode(array("username"=>$_POST["mail"], "password"=>$_POST["password"])),
 	  CURLOPT_HTTPHEADER => array(
 	    ': ',
 	    'Content-Type: application/json'
@@ -54,5 +51,7 @@ if (isset($_POST["mail"]) && isset($_POST["password"])){
 
 	curl_close($curl);
 
-	print_r($reponse);
+	$_SESSION["token"] = get_object_vars(json_decode($response)["token"])
+
+	echo $reponse;
 }
