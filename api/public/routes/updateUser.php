@@ -23,15 +23,9 @@ try {
 
     $databaseConnection = getDatabaseConnection();
 
-    $updateUserQuery = $databaseConnection->prepare("
-        UPDATE users
-        SET 
-        password = :password
-        username = :username
-        WHERE id_user = :id;
-    ");
+    $updateUserQuery = $databaseConnection->prepare("UPDATE users SET password = :password, username = :username WHERE id_user = :id");
 
-    $createUserQuery->execute([
+    $updateUserQuery->execute([
         "username" => htmlspecialchars($userUsername),
         "password" => htmlspecialchars($userPassword),
         "id" => htmlspecialchars($parameter),
