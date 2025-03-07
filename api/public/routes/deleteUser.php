@@ -11,7 +11,6 @@ try {
     $databaseConnection = getDatabaseConnection();
 
     try {
-<<<<<<< HEAD
         $getOrderQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id;");
         $getOrderQuery->execute([
             "id" => $parameter
@@ -22,7 +21,6 @@ try {
             echo jsonResponse(404, [
                 "success" => false,
                 "message" => "Order not found"
-=======
         $getUserQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id;");
         $getUserQuery->execute([
             "id" => $parameter
@@ -33,7 +31,6 @@ try {
             echo jsonResponse(404, [
                 "success" => false,
                 "message" => "User not found"
->>>>>>> e5f8d8701c6c8eabc1c6ed7994a93a61432ecddb
             ]);
             die();
         }
@@ -46,21 +43,9 @@ try {
         die();
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    $deleteOrderQuery = $databaseConnection->prepare("DELETE FROM users WHERE id_user=:id;");
-
-    $deleteOrderQuery->execute([
-=======
     $deleteUserQuery = $databaseConnection->prepare("UPDATE users SET is_archived = TRUE WHERE id_user = :id;");
 
     $deleteUserQuery->execute([
->>>>>>> 23e6132662ed6ab991e14eade2796bdd3c8df8ee
-=======
-    $deleteUserQuery = $databaseConnection->prepare("UPDATE users SET is_archived = TRUE WHERE id_user = :id;");
-
-    $deleteUserQuery->execute([
->>>>>>> e5f8d8701c6c8eabc1c6ed7994a93a61432ecddb
         "id" => $parameter
     ]);
 
@@ -74,5 +59,4 @@ try {
         "error" => $exception->getMessage()
     ]);
     die();
-<<<<<<< HEAD
 }
