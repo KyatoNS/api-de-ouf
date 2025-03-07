@@ -1,12 +1,6 @@
 <?php include('header.php'); ?>
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <img class="mx-auto h-10 w-auto" src="content/scalti-logo.png" alt="Scalti">
-  </div>
-
-
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-<div class="border-2 border-solid m-2 rounded p-3 border-gray-600">
+<div class="grid grid-cols-12">
+   <div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     <h2> Modify a user </h2>
 	<form class="space-y-6" method="POST">
 	<div>
@@ -68,7 +62,7 @@ $curl = curl_init();
 
 ?>
 
-<div class="border-2 border-solid m-2 rounded p-3 border-gray-600">
+<div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     <h2> Delete a user </h2>
      <form class="space-y-6" method="POST">
       <div>
@@ -110,7 +104,7 @@ $curl = curl_init();
 ?>
 
 
-<div class="border-2 border-solid m-2 rounded p-3 border-gray-600">
+<div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     <h2> Create a user </h2>
     <form class="space-y-6" method="POST">
       <div>
@@ -161,7 +155,7 @@ $curl = curl_init();
 	$response = curl_exec($curl);
 	curl_close($curl);
 ?>
-<div class="border-2 border-solid m-2 rounded p-3 border-gray-600" >
+<div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600" >
     <form class="space-y-6"  method="GET">
       <div>
         <div class="flex items-center justify-between">
@@ -180,7 +174,7 @@ $curl = curl_init();
 </div>
 <?php print_r($response); ?>
 
-    <ul role="list" class="divide-y divide-gray-100 ">
+    <ul role="list" class="col-span-12 divide-y divide-gray-100 flex">
 
 <?php
 

@@ -1,10 +1,6 @@
 <?php include('header.php'); ?>
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <img class="mx-auto h-10 w-auto" src="content/scalti-logo.png" alt="Scalti">
-  </div>
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-	<div class="border-2 border-solid m-2 rounded p-3 border-gray-600">
+   <div class="grid grid-cols-12">
+	<div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     	<h2> Modify an order </h2>
 	<form class="space-y-6" method="POST">
 	<div>
@@ -47,7 +43,6 @@
       </div>
     </form>
 </div>
-</div>
 <?php
 
 
@@ -77,8 +72,9 @@
 }
 
 ?>
+</div>
 
-<div class="border-2 border-solid m-2 rounded p-3 border-gray-600">
+<div class=" col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     <h2> Delete an order</h2>
      <form class="space-y-6" method="POST">
       <div>
@@ -93,7 +89,6 @@
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Delete</button>
       </div>
     </form>
-</div>
 <?php
 
 	$curl = curl_init();
@@ -109,17 +104,17 @@
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'DELETE',
  		));
-	}
 
-	curl_exec($curl);
+	$response = curl_exec($curl);
 	curl_close($curl);
+	print_r($response);
+	}
 
 
 
 ?>
-
-
-<div class="border-2 border-solid m-2 rounded p-3 border-gray-600">
+</div>
+<div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     <h2> Create an order </h2>
     <form class="space-y-6" method="POST">
       <div>
@@ -152,7 +147,6 @@
       </div>
     </form>
 </div>
-</div>
 <?php
 
 	$curl = curl_init();
@@ -180,7 +174,10 @@
 	print_r($response);
 
 ?>
-<div class="border-2 border-solid m-2 rounded p-3 border-gray-600" >
+</div>
+
+
+<div class=" col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600" >
     <form class="space-y-6" method="GET">
       <div>
         <div class="flex items-center justify-between">
@@ -196,7 +193,7 @@
       </div>
     </form>
 </div>
-    <ul role="list" class="divide-y divide-gray-100 flex">
+    <ul role="list" class="col-span-12 divide-y divide-gray-100 flex">
 
 <?php
 
@@ -249,6 +246,5 @@
 ?>
      </ul>
   </div>
-</div>
 
 <?php include('footer.php'); ?>
