@@ -21,6 +21,10 @@ try {
             echo jsonResponse(404, [
                 "success" => false,
                 "message" => "Order not found"
+            ]);
+            die();
+        }
+
         $getUserQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id;");
         $getUserQuery->execute([
             "id" => $parameter
