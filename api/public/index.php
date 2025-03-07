@@ -58,6 +58,10 @@ if (isPath("orders/:id")) {
         require_once __DIR__ . "/routes/deleteOrder.php";
         die();
     }
+    if (isPutMethod()) {
+        require_once __DIR__ . "/routes/updateOrder.php";
+        die();
+    }
 }
 
 if (isPath("migrate")) {
