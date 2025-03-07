@@ -2,47 +2,59 @@
 
 require_once __DIR__ . "/../db.php";
 require_once __DIR__ . "/../Utils.php";
+require_once __DIR__ . "/../tokens.php";
 
 try {
-    $path = $_SERVER["REQUEST_URI"];
-    $pathslited = explode("/", $path);
-    $parameter = end($pathslited);
+    $headers = getallheaders();
+    $head = ($headers['Authorization']);
+    $token = explode(" ", $head);
+    $token = $token[1];
+    if(verifyToken($token)){
+        $path = $_SERVER["REQUEST_URI"];
+        $pathslited = explode("/", $path);
+        $parameter = end($pathslited);
 
-    $databaseConnection = getDatabaseConnection();
+        $databaseConnection = getDatabaseConnection();
 
-    try {
-        $getOrderQuery = $databaseConnection->prepare("SELECT * FROM orders WHERE id_order=:id AND is_archived = FALSE;");
-        $getOrderQuery->execute([
-            "id" => $parameter
-        ]);
-        $order = $getOrderQuery->fetch(PDO::FETCH_ASSOC);
+        try {
+            $getOrderQuery = $databaseConnection->prepare("SELECT * FROM orders WHERE id_order=:id AND is_archived = FALSE;");
+            $getOrderQuery->execute([
+                "id" => $parameter
+            ]);
+            $order = $getOrderQuery->fetch(PDO::FETCH_ASSOC);
 
-        if (empty($order)) {
-            echo jsonResponse(404, [
+            if (empty($order)) {
+                echo jsonResponse(404, [
+                    "success" => false,
+                    "message" => "Order not found"
+                ]);
+                die();
+            }
+
+        } catch (Exception $exception) {
+            echo jsonResponse(500, [
                 "success" => false,
-                "message" => "Order not found"
+                "error" => $exception->getMessage()
             ]);
             die();
         }
 
-    } catch (Exception $exception) {
-        echo jsonResponse(500, [
-            "success" => false,
-            "error" => $exception->getMessage()
+        $deleteOrderQuery = $databaseConnection->prepare("UPDATE orders SET is_archived = TRUE WHERE id_order=:id;");
+
+        $deleteOrderQuery->execute([
+            "id" => $parameter
         ]);
-        die();
+
+        echo jsonResponse(200, [
+            "success" => true,
+            "message" => "deleted"
+        ]);
+    }else{
+        echo jsonResponse(401, [
+            "success" => false,
+            "message" => "Token not valid"
+        ]);
     }
-
-    $deleteOrderQuery = $databaseConnection->prepare("UPDATE orders SET is_archived = TRUE WHERE id_order=:id;");
-
-    $deleteOrderQuery->execute([
-        "id" => $parameter
-    ]);
-
-    echo jsonResponse(200, [
-        "success" => true,
-        "message" => "deleted"
-    ]);
 } catch (Exception $exception) {
     echo jsonResponse(500, [
         "success" => false,
