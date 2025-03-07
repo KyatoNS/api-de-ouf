@@ -63,7 +63,6 @@ $curl = curl_init();
 
 
 			$response = curl_exec($curl);
-			print_r($response);
 			curl_close($curl);
 
 		}
@@ -87,7 +86,6 @@ $curl = curl_init();
 	 		  ));
 
 		$reponse = curl_exec($curl);
-		print_r($response);
 		curl_close($curl);
 
 	}
@@ -130,7 +128,6 @@ $curl = curl_init();
 	}
 
 	$response = curl_exec($curl);
-	print_r($response);
 	curl_close($curl);
 
 
@@ -187,7 +184,6 @@ $curl = curl_init();
 
 
 	$response = curl_exec($curl);
-	print_r($response);
 	curl_close($curl);
 ?>
 <div class="border-2 border-solid m-2 rounded p-3 border-gray-600" >
@@ -205,7 +201,10 @@ $curl = curl_init();
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Search</button>
       </div>
     </form>
+
 </div>
+<?php print_r($response); ?>
+
     <ul role="list" class="divide-y divide-gray-100 ">
 
 <?php

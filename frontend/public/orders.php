@@ -133,7 +133,7 @@
      <form class="space-y-6" method="POST">
       <div>
         <div class="flex items-center justify-between">
-          <label class="block text-sm/6 font-medium text-gray-200">User ID</label>
+          <label class="block text-sm/6 font-medium text-gray-200">Order #</label>
         </div>
         <div class="mt-2">
           <input type="text" name="useriddelete" id="useriddelete"  required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -150,7 +150,7 @@
 
 	if (isset($_POST["useriddelete"])) {
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'http://webserver/orders',
+		  CURLOPT_URL => 'http://webserver/orders/'.$_POST["useriddelete"],
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => '',
 		  CURLOPT_MAXREDIRS => 10,
@@ -158,11 +158,6 @@
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'DELETE',
-		  CURLOPT_POSTFIELDS =>json_encode(array("id_user"=>$_POST["useridelete"])),
-	          CURLOPT_HTTPHEADER => array(
-	          ': ',
-	          'Content-Type: application/json'
-	           ),
  		));
 	}
 
@@ -196,7 +191,7 @@
       <div>
       <div>
         <div class="flex items-center justify-between">
-          <label class="block text-sm/6 font-medium text-gray-200">Date</label>
+          <label class="block text-sm/6 font-medium text-gray-200">User Id</label>
         </div>
         <div class="mt-2">
           <input type="text" name="useridcreate" id="useridcreate"  required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -222,7 +217,7 @@
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'POST',
-		  CURLOPT_POSTFIELDS =>json_encode(array("prix"=>$_POST["pricecreate"], "date"=>$_POST["datecreate"], "id_user"=>$_POST["idusercreate"])),
+		  CURLOPT_POSTFIELDS =>json_encode(array("prix"=>$_POST["pricecreate"], "date"=>$_POST["datecreate"], "id_user"=>$_POST["useridcreate"])),
 	          CURLOPT_HTTPHEADER => array(
 	          ': ',
 	          'Content-Type: application/json'
