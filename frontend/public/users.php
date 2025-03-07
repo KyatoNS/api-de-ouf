@@ -118,7 +118,7 @@ $curl = curl_init();
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'http://webserver/users',
+		  CURLOPT_URL => 'http://webserver/users/'.$_POST["useriddelete"],
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => '',
 		  CURLOPT_MAXREDIRS => 10,
@@ -126,11 +126,6 @@ $curl = curl_init();
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'DELETE',
-		  CURLOPT_POSTFIELDS =>json_encode(array("id_user"=>$_POST["useridelete"])),
-	          CURLOPT_HTTPHEADER => array(
-	          ': ',
-	          'Content-Type: application/json'
-	           ),
  		));
 	}
 
