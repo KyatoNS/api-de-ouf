@@ -6,7 +6,7 @@ require_once __DIR__ . "/../Utils.php";
 try {
 
     $databaseConnection = getDatabaseConnection();
-    $getUsersQuery = $databaseConnection->query("SELECT * FROM users;");
+    $getUsersQuery = $databaseConnection->query("SELECT * FROM users WHERE is_archived = FALSE;");
 
     $users = $getUsersQuery->fetchAll(PDO::FETCH_ASSOC);
 
