@@ -41,11 +41,11 @@
 </div>
 <?php
 
-
+$curl = curl_init();
 
 	if (isset($_POST["useridmodify"]) && isset($_POST["newusername"]) || isset($_POST["newpassword"])) {
 		if (isset($_POST["newusername"])){
-			$curl = curl_init();
+			
 
 				curl_setopt_array($curl, array(
 				  CURLOPT_URL => 'http://webserver/users',
@@ -118,9 +118,10 @@
 </div>
 <?php
 
-	$curl = curl_init();
 
 	if (isset($_POST["useriddelete"])) {
+		$curl = curl_init();
+
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => 'http://webserver/users',
 		  CURLOPT_RETURNTRANSFER => true,
@@ -174,9 +175,10 @@
 </div>
 <?php
 
-	$curl = curl_init();
 
 	if (isset($_POST["usernamecreate"]) && isset($_POST["passwordcreate"])) {
+		$curl = curl_init();
+
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => 'http://webserver/users',
 		  CURLOPT_RETURNTRANSFER => true,
@@ -186,10 +188,7 @@
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'POST',
-		  CURLOPT_POSTFIELDS =>'{
-         	  "username": $_POST["usernamecreate"],
-	          "password": $_POST["passwordcreate"]
-	          }',
+		  CURLOPT_POSTFIELDS => json_encode(array('username'=>$_POST["usernamecreate"], 'password'=>$_POST["passwordcreate"])),
 	          CURLOPT_HTTPHEADER => array(
 	          ': ',
 	          'Content-Type: application/json'
@@ -197,9 +196,10 @@
  		));
 	}
 
-	curl_exec($curl);
-	curl_close($curl);
 
+	$response = curl_exec($curl);
+	curl_close($curl);
+	print_r($response);
 ?>
 <div class="border-2 border-solid m-2 rounded p-3" >
     <form class="space-y-6" action="#" method="GET">
