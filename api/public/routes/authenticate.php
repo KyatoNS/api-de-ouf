@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../db.php";
 require_once __DIR__ . "/../Utils.php";
+require_once __DIR__ . "/../tokens.php";
 
 try {
     $body = getBody();
@@ -34,9 +35,20 @@ try {
             die();
         }
 
+        $userId = $user["id_user"];
         $hashed_password = $user["password"];
         if (password_verify($userPassword, $hashed_password)){
-            echo("tout est ok");
+            $token = createToken($userId);
+            $addToken = $databaseConnection->prepare("UPDATE users SET token=:token WHERE id_user=:id_user;");
+            $addToken->execute([
+                "token" => $token,
+                "id_user" => $userId,
+            ]);
+            echo jsonResponse(200, [
+                "success" => true,
+                "token" => $token
+            ]);
+            die();
         }else{
             echo jsonResponse(404, [
                 "success" => false,
