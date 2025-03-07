@@ -32,7 +32,7 @@
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Modify</button>
       </div>
     </form>
-</div>
+
 <?php
 
 $curl = curl_init();
@@ -61,7 +61,7 @@ $curl = curl_init();
 		}
 
 ?>
-
+</div>
 <div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     <h2> Delete a user </h2>
      <form class="space-y-6" method="POST">
@@ -77,7 +77,6 @@ $curl = curl_init();
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Delete</button>
       </div>
     </form>
-</div>
 <?php
 
 
@@ -102,6 +101,7 @@ $curl = curl_init();
 
 
 ?>
+</div>
 
 
 <div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
@@ -127,7 +127,6 @@ $curl = curl_init();
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
       </div>
     </form>
-</div>
 <?php
 
 
@@ -155,6 +154,8 @@ $curl = curl_init();
 	$response = curl_exec($curl);
 	curl_close($curl);
 ?>
+</div>
+
 <div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600" >
     <form class="space-y-6"  method="GET">
       <div>
