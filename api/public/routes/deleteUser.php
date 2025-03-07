@@ -33,9 +33,15 @@ try {
         die();
     }
 
+<<<<<<< HEAD
     $deleteOrderQuery = $databaseConnection->prepare("DELETE FROM users WHERE id_user=:id;");
 
     $deleteOrderQuery->execute([
+=======
+    $deleteUserQuery = $databaseConnection->prepare("UPDATE users SET is_archived = TRUE WHERE id_user = :id;");
+
+    $deleteUserQuery->execute([
+>>>>>>> 23e6132662ed6ab991e14eade2796bdd3c8df8ee
         "id" => $parameter
     ]);
 
@@ -49,4 +55,8 @@ try {
         "error" => $exception->getMessage()
     ]);
     die();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 23e6132662ed6ab991e14eade2796bdd3c8df8ee

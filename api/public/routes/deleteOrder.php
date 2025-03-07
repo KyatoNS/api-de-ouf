@@ -33,7 +33,7 @@ try {
         die();
     }
 
-    $deleteOrderQuery = $databaseConnection->prepare("DELETE FROM orders WHERE id_order=:id;");
+    $deleteOrderQuery = $databaseConnection->prepare("UPDATE orders SET is_archived = TRUE WHERE id_order=:id;");
 
     $deleteOrderQuery->execute([
         "id" => $parameter
