@@ -1,4 +1,6 @@
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+$token=$_SESSION['token'];
+?>
    <div class="grid grid-cols-12">
 	<div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     	<h2> Modify an order </h2>
@@ -58,10 +60,11 @@
 				  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				  CURLOPT_CUSTOMREQUEST => 'PUT',
 				  CURLOPT_POSTFIELDS =>json_encode(array("prix"=>$_POST["newprice"], "date"=>$_POST["newdate"], 'id_user'=>$_POST["neworderiduser"])),
-			          CURLOPT_HTTPHEADER => array(
-			          ': ',
-			          'Content-Type: application/json'
-			           ),
+                        	  CURLOPT_HTTPHEADER => array(
+                         ': ',
+                          'Content-Type: application/json',
+                          "Authorization: Bearer $token"
+                           ),
 		 		  ));
 
 
@@ -103,6 +106,11 @@
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'DELETE',
+                  CURLOPT_HTTPHEADER => array(
+                         ': ',
+                          'Content-Type: application/json',
+                          "Authorization: Bearer $token"
+                           ),
  		));
 
 	$response = curl_exec($curl);
@@ -162,10 +170,11 @@
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'POST',
 		  CURLOPT_POSTFIELDS =>json_encode(array("prix"=>$_POST["pricecreate"], "date"=>$_POST["datecreate"], "id_user"=>$_POST["useridcreate"])),
-	          CURLOPT_HTTPHEADER => array(
-	          ': ',
-	          'Content-Type: application/json'
-	           ),
+                  CURLOPT_HTTPHEADER => array(
+                         ': ',
+                          'Content-Type: application/json',
+                          "Authorization: Bearer $token"
+                           ),
  		));
 	}
 
@@ -209,6 +218,11 @@
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'GET',
+                  CURLOPT_HTTPHEADER => array(
+                         ': ',
+                          'Content-Type: application/json',
+                          "Authorization: Bearer $token"
+                           ),
 		));
 
 	}
@@ -222,6 +236,11 @@
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'GET',
+                  CURLOPT_HTTPHEADER => array(
+                         ': ',
+                          'Content-Type: application/json',
+                          "Authorization: Bearer $token"
+                           ),
 		));
 	}
 

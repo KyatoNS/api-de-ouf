@@ -1,4 +1,6 @@
-<?php include('header.php'); ?>
+<?php include('header.php'); 
+$token = $_SESSION['token'];
+?>
 <div class="grid grid-cols-12">
    <div class="col-span-3 border-2 border-solid m-2 rounded p-3 border-gray-600">
     <h2> Modify a user </h2>
@@ -48,9 +50,10 @@ $curl = curl_init();
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => 'PUT',
 			  CURLOPT_POSTFIELDS =>json_encode(array("username"=>$_POST["newusername"], "password"=>$_POST["newpassword"])),
-		          CURLOPT_HTTPHEADER => array(
+		  	CURLOPT_HTTPHEADER => array(
 		         ': ',
-		          'Content-Type: application/json'
+		          'Content-Type: application/json',
+			  "Authorization: Bearer $token"
 		           ),
 	 		  ));
 
@@ -82,7 +85,7 @@ $curl = curl_init();
 
 	if (isset($_POST["useriddelete"])) {
 		$curl = curl_init();
-
+		$token = $_SESSION['token'];
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => 'http://webserver/users/'.$_POST["useriddelete"],
 		  CURLOPT_RETURNTRANSFER => true,
@@ -92,6 +95,11 @@ $curl = curl_init();
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'DELETE',
+		  CURLOPT_HTTPHEADER => array(
+		         ': ',
+		          'Content-Type: application/json',
+			  "Authorization: Bearer $token"
+		           ),
  		));
 	}
 
@@ -143,11 +151,12 @@ $curl = curl_init();
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'POST',
 		  CURLOPT_POSTFIELDS => json_encode(array('username'=>$_POST["usernamecreate"], 'password'=>$_POST["passwordcreate"])),
-	          CURLOPT_HTTPHEADER => array(
-	          ': ',
-	          'Content-Type: application/json'
-	           ),
- 		));
+		  CURLOPT_HTTPHEADER => array(
+		         ': ',
+		          'Content-Type: application/json',
+			  "Authorization: Bearer $token"
+		           ),
+		));
 	}
 
 
@@ -166,7 +175,6 @@ $curl = curl_init();
           <input type="text" name="userid" id="userid"  required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
         </div>
       </div>
-
       <div>
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Search</button>
       </div>
@@ -191,10 +199,18 @@ $curl = curl_init();
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'GET',
+		  CURLOPT_HTTPHEADER => array(
+		         ': ',
+		          'Content-Type: application/json',
+			  "Authorization: Bearer $token"
+		           ),
 		));
 
 	}
 	 else {
+		
+		$token=$_SESSION['token'];
+		echo $_SESSION['token'];
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => 'http://webserver/users',
 		  CURLOPT_RETURNTRANSFER => true,
@@ -204,6 +220,11 @@ $curl = curl_init();
 		  CURLOPT_FOLLOWLOCATION => true,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => 'GET',
+		  CURLOPT_HTTPHEADER => array(
+		         ': ',
+		          'Content-Type: application/json',
+			  "Authorization: Bearer $token"
+		           ),
 		));
 	}
 
@@ -226,7 +247,9 @@ $curl = curl_init();
 ?>
      </ul>
   </div>
-<?php print_r($response);
+<?php 
+print_r($response);
+echo $_SESSION["token"];
 ?>
 </div>
 

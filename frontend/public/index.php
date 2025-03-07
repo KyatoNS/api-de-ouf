@@ -29,7 +29,7 @@
 <?php include('footer.php');
 
 
-if (isset($_POST["mail"]) && isset($_POST["password"])){
+if (isset($_POST["username"]) && isset($_POST["password"])){
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
 	  CURLOPT_URL => 'http://webserver/authenticate',
@@ -40,7 +40,7 @@ if (isset($_POST["mail"]) && isset($_POST["password"])){
 	  CURLOPT_FOLLOWLOCATION => true,
 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 	  CURLOPT_CUSTOMREQUEST => 'POST',
-	  CURLOPT_POSTFIELDS =>java_encode(array("username"=>$_POST["mail"], "password"=>$_POST["password"])),
+	  CURLOPT_POSTFIELDS =>json_encode(array("username"=>$_POST["username"], "password"=>$_POST["password"])),
 	  CURLOPT_HTTPHEADER => array(
 	    ': ',
 	    'Content-Type: application/json'
@@ -50,8 +50,12 @@ if (isset($_POST["mail"]) && isset($_POST["password"])){
 	$response = curl_exec($curl);
 
 	curl_close($curl);
+	/*print_r($response);
+*/
+	$_SESSION["token"] = get_object_vars(json_decode($response))["token"];
 
-	$_SESSION["token"] = get_object_vars(json_decode($response)["token"])
-
+	echo $_SESSION["token"];
+	
 	echo $reponse;
 }
+?>
