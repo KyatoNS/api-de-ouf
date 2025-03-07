@@ -11,21 +11,7 @@ try {
     $databaseConnection = getDatabaseConnection();
 
     try {
-        $getOrderQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id;");
-        $getOrderQuery->execute([
-            "id" => $parameter
-        ]);
-        $order = $getOrderQuery->fetch(PDO::FETCH_ASSOC);
-
-        if (empty($order)) {
-            echo jsonResponse(404, [
-                "success" => false,
-                "message" => "Order not found"
-            ]);
-            die();
-        }
-
-        $getUserQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id;");
+        $getUserQuery = $databaseConnection->prepare("SELECT * FROM users WHERE id_user=:id AND is_archived = FALSE;");
         $getUserQuery->execute([
             "id" => $parameter
         ]);

@@ -11,7 +11,7 @@ try {
     $databaseConnection = getDatabaseConnection();
 
     try {
-        $getOrderQuery = $databaseConnection->prepare("SELECT * FROM orders WHERE id_order=:id;");
+        $getOrderQuery = $databaseConnection->prepare("SELECT * FROM orders WHERE id_order=:id AND is_archived = FALSE;");
         $getOrderQuery->execute([
             "id" => $parameter
         ]);
